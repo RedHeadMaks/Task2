@@ -1,4 +1,4 @@
-from step import *
+from Game import *
 import numpy as np
 from collections import defaultdict
 from mpl_toolkits import mplot3d
@@ -108,7 +108,7 @@ def plot_3d_from_dict(data_dict: dict):
 
 if __name__ == '__main__':
     game = Game()
-    num_episodes = 10**4
+    num_episodes = 10**5
     gamma = 1
     V, policy = monte_carlo_control(game, num_episodes, gamma)
     sortedV = list(sortedDict(V).items())
