@@ -1,4 +1,6 @@
 import random
+from collections import defaultdict
+import numpy as np
 def generateCard():
     value = random.randint(1, 10)
     color = random.choice([-1, 1, 1])
@@ -35,3 +37,24 @@ class State:
 
     def __str__(self):
         return f"(gamer: {self.gamer}, dealer: {self.dealer})"
+
+def createDefaultDict():
+    d = defaultdict(lambda: np.zeros(2))
+    x_range = np.arange(0, 22)
+    y_range = np.arange(0, 10)
+    for y in y_range:
+        for x in x_range:
+            state = State(x, y)
+            d[state] = np.zeros(2)
+    return d
+
+def getDifference(Q_sarsa: defaultdict, Q_mc: defaultdict):
+    difference = createDefaultDict()
+    keys = set()
+    for state in difference.keys():
+        keys.add(state)
+    for state in keys:
+        difference[state][0] = (Q_sarsa[state][0] - Q_mc[state][0]) ** 2
+        difference[state][1] = (Q_sarsa[state][1] - Q_mc[state][1]) ** 2
+    result = np.sum(list(difference.values()))
+    return difference, result
